@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SingleSina</string>
+    <string name="first_name">微博</string>
+    <string name="second_name">消息</string>
+    <string name="third_name">+</string>
+    <string name="forth_name">发现</string>
+    <string name="fifth_name">我</string>
+</resources>

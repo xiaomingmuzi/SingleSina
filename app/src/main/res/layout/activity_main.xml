@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lixm.singlesina.activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/realTabContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
+    <android.support.v4.app.FragmentTabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/fragment_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f6f6f6"
+                android:orientation="vertical"
+                android:padding="10dp"></LinearLayout>
+        </FrameLayout>
+    </android.support.v4.app.FragmentTabHost>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bottom_bg">
+
+        <View
+            android:id="@+id/bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_de" />
+
+        <LinearLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bottom_line"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp">
+
+                <RadioButton
+                    android:id="@+id/Rb_First"
+                    style="@style/main_bottom"
+                    android:checked="true"
+                    android:text="@string/first_name"
+                    android:textColor="@color/bottom_text_color" />
+
+
+                <RadioButton
+                    android:id="@+id/Rb_Second"
+                    style="@style/main_bottom"
+                    android:text="@string/second_name"
+                    android:textColor="@color/bottom_text_color" />
+
+                <RadioButton
+                    android:id="@+id/Rb_Third"
+                    style="@style/main_bottom"
+                    android:text="@string/third_name"
+                    android:textColor="@color/bottom_text_color" />
+
+                <RadioButton
+                    android:id="@+id/Rb_Forth"
+                    style="@style/main_bottom"
+                    android:text="@string/forth_name"
+                    android:textColor="@color/bottom_text_color" />
+
+                <RadioButton
+                    android:id="@+id/Rb_Fifth"
+                    style="@style/main_bottom"
+                    android:text="@string/fifth_name"
+                    android:textColor="@color/bottom_text_color" />
+            </RadioGroup>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
