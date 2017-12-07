@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -36,7 +36,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="@color/bottom_bg">
 
@@ -50,7 +49,7 @@
         <LinearLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/bottom_line"
             android:gravity="center"
             android:orientation="vertical">
@@ -87,9 +86,9 @@
                     android:textColor="@color/bottom_text_color" />
 
                 <RadioButton
-                    android:id="@+id/Rb_Forth"
+                    android:id="@+id/Rb_Fourth"
                     style="@style/main_bottom"
-                    android:text="@string/forth_name"
+                    android:text="@string/fourth_name"
                     android:textColor="@color/bottom_text_color" />
 
                 <RadioButton
@@ -102,4 +101,4 @@
 
     </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
