@@ -1,5 +1,6 @@
 package com.lixm.singlesina.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.lixm.singlesina.fragment.MainFragment;
 import com.lixm.singlesina.fragment.MessageFragment;
 import com.lixm.singlesina.fragment.UserFragment;
 import com.lixm.singlesina.fragment.WriteFragment;
+import com.lixm.singlesina.utils.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +28,8 @@ public class MainActivity extends BaseActivity {
     LinearLayout mRealContent;
     @BindView(android.R.id.tabhost)
     FragmentTabHost mTabHost;
+
+    private String CALLBACK_LOGING="CALLBACK_LOGING";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +76,18 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mTabHost.getCurrentTab()==4){
+            data.putExtra("requestCode",requestCode);
+            data.putExtra("resultCode",resultCode);
+            data.setAction(CALLBACK_LOGING);
+            sendBroadcast(data);
+            LogUtil.w("====activty  onActivityResult=====");
+        }
     }
 }

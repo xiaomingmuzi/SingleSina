@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+
     defaultConfig {
         applicationId "com.lixm.singlesina"
         minSdkVersion 19
@@ -10,25 +12,66 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
+
+    packagingOptions{
+        exclude 'AndroidManifest.xml'
+    }
+
+    sourceSets{
+        main{
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs 'src/main/res';
+            assets.srcDirs 'src/main/assets'
+        }
+    }
+
+    signingConfigs{
+        debug{
+            storeFile file('../singlesina.jks')
+            storePassword "lixmsingle"
+            keyAlias "Lixm"
+            keyPassword "lixmsingle"
+        }
+        release{
+            storeFile file('../singlesina.jks')
+            storePassword "lixmsingle"
+            keyAlias "Lixm"
+            keyPassword "lixmsingle"
+        }
+    }
+
+    buildTypes{
+        release{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+        release{
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+repositories{
+    flatDir {
+        dirs 'libs'
     }
 }
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar'
 }
