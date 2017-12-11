@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingEnd="10dp"
+    android:background="@color/white"
+    android:paddingStart="10dp"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/ic_menu_myplaces" />
+
+    <TextView
+        android:id="@+id/item_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_33"
+        android:text="新的好友"
+        android:layout_toEndOf="@id/item_img"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/item_txt"
+        android:layout_marginStart="10dp"
+        android:text="收藏，移到这里了"
+        android:textColor="@color/color_94"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/item_right_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+       android:background="@mipmap/mini_arrow" />
+
+    <TextView
+        android:id="@+id/item_right_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/circle_red_bg"
+        android:layout_alignParentEnd="true"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textSize="10sp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="10" />
+
+
+</RelativeLayout>

@@ -7,16 +7,24 @@
 
     <RelativeLayout
         android:id="@+id/back_layout"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
+        android:paddingStart="8dp"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true">
 
+        <TextView
+            android:id="@+id/back_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加好友"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:textColor="@color/color_4a"/>
 
         <ImageView
             android:id="@+id/back_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:background="@drawable/toolbar_back"
             android:foregroundGravity="center" />
     </RelativeLayout>
@@ -35,8 +43,8 @@
         android:id="@+id/right_layout"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:visibility="gone">
 
 
         <ImageView
@@ -51,8 +59,8 @@
             android:id="@+id/right_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="功能"
             android:textColor="@color/color_99"
             android:textSize="14sp" />

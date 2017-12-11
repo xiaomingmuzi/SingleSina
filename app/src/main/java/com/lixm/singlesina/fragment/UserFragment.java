@@ -12,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.bean.UserInfoBean;
@@ -31,7 +34,6 @@ import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -46,10 +48,14 @@ import okhttp3.Response;
  * @detail
  */
 
-public class UserFragment extends BaseFragment {
+public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.back_layout)
     RelativeLayout mBackLayout;
+    @BindView(R.id.back_txt)
+    TextView mBackTxt;
+    @BindView(R.id.back_img)
+    ImageView mBackImg;
     @BindView(R.id.title_name)
     TextView mTitle;
     @BindView(R.id.right_layout)
@@ -64,7 +70,27 @@ public class UserFragment extends BaseFragment {
     TextView mBtnRegister;
     @BindView(R.id.btn_login)
     TextView mBtnLogin;
+    @BindView(R.id.no_login_layout)
+    RelativeLayout mNoLoginLayout;
 
+    @BindView(R.id.user_login_layout)
+    ScrollView mLoginLayout;
+    @BindView(R.id.user_head)
+    ImageView mUserHead;
+    @BindView(R.id.user_name)
+    TextView mUserName;
+    @BindView(R.id.user_des)
+    TextView mUserDes;
+    @BindView(R.id.vip_layout)
+    LinearLayout mVipLayout;
+    @BindView(R.id.statuses_count)
+    TextView mStatusesCount;
+    @BindView(R.id.friends_count)
+    TextView mFriendsCount;
+    @BindView(R.id.followers_count)
+    TextView mFollowersCount;
+
+    private UserInfoBean userInfoBean;
     private Unbinder unbinder;
     /**
      * 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能
@@ -98,8 +124,51 @@ public class UserFragment extends BaseFragment {
         }
 
         getActivity().registerReceiver(receiver, new IntentFilter(CALLBACK_LOGING));
+        initListener();
 
         return view;
+    }
+
+    private void initListener() {
+        mBtnLogin.setOnClickListener(this);
+        mBtnRegister.setOnClickListener(this);
+        mVipLayout.setOnClickListener(this);
+        mBackLayout.setOnClickListener(this);
+        mRightLayout.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+                LogUtil.i("开始登录");
+                mSsoHandler.authorize(new SelfWbAuthListener());
+                break;
+            case R.id.btn_register:
+                Toast.makeText(getContext(), "注册", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.vip_layout:
+                Toast.makeText(getContext(), "vip", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+    }
+
+    private void changeView() {
+        mNoLoginLayout.setVisibility(View.GONE);
+        mLoginLayout.setVisibility(View.VISIBLE);
+        Glide.with(getContext()).load(userInfoBean.getAvatar_large()).centerCrop().error(R.mipmap.default_head).placeholder(R.mipmap.default_head).into(mUserHead);
+        mUserName.setText(userInfoBean.getName());
+        mUserDes.setText("简介:" + userInfoBean.getDescription());
+        mStatusesCount.setText(userInfoBean.getStatuses_count()+"");
+        mFriendsCount.setText(userInfoBean.getFriends_count()+"");
+        mFollowersCount.setText(userInfoBean.getFollowers_count()+"");
+        mBackLayout.setVisibility(View.VISIBLE);
+        mBackTxt.setText("添加好友");
+        mBackImg.setVisibility(View.GONE);
+        mRightLayout.setVisibility(View.VISIBLE);
+        mRightImg.setVisibility(View.GONE);
+        mRightTxt.setText("设置");
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -110,19 +179,6 @@ public class UserFragment extends BaseFragment {
             }
         }
     };
-
-    @OnClick
-    public void setmBtnLogin() {
-//        Toast.makeText(getContext(),"登录",Toast.LENGTH_SHORT).show();
-        LogUtil.i("开始登录");
-        mSsoHandler.authorize(new SelfWbAuthListener());
-    }
-
-    @OnClick
-    public void setmBtnRegister() {
-        Toast.makeText(getContext(), "注册", Toast.LENGTH_SHORT).show();
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -154,6 +210,7 @@ public class UserFragment extends BaseFragment {
                         updateTokenView(false);
                         // 保存 Token 到 SharedPreferences
                         AccessTokenKeeper.writeAccessToken(getActivity(), mAccessToken);
+
                         getUserInfo(mAccessToken);
                         Toast.makeText(getActivity(),
                                 "获取token成功", Toast.LENGTH_SHORT).show();
@@ -191,20 +248,6 @@ public class UserFragment extends BaseFragment {
         LogUtil.i("获取的token为：" + message);
     }
 
-    private final int SAVE_USER = 0X01;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SAVE_USER:
-                    UserInfoBean userInfoBean = new Gson().fromJson(msg.obj.toString(), UserInfoBean.class);
-                    userInfoBean.writeToCache(getContext());
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     private void getUserInfo(Oauth2AccessToken mAccessToken) {
         OkHttpClient client = new OkHttpClient();
         String url = UrlUtils.show + "?access_token=" + mAccessToken.getToken() + "&uid=" + mAccessToken.getUid();
@@ -223,17 +266,31 @@ public class UserFragment extends BaseFragment {
                 for (int i = 0; i < responseHeaders.size(); i++) {
                     LogUtil.i(responseHeaders.name(i) + "：" + responseHeaders.value(i));
                 }
-                String content=response.body().string();
-                LogUtil.i("返回内容为：" +content );
-//                Message message=Message.obtain();
-//                message.what=SAVE_USER;
-//                message.obj=response.body().string();
-//                handler.sendMessage(message);
-                UserInfoBean userInfoBean = new Gson().fromJson(content, UserInfoBean.class);
-                userInfoBean.writeToCache(getContext());
+                String content = response.body().string();
+                LogUtil.i("返回内容为：" + content);
+                userInfoBean = new Gson().fromJson(content, UserInfoBean.class);
+                if (userInfoBean != null) {
+                    userInfoBean.writeToCache(getContext());
+//                    changeView();
+                    handler.sendEmptyMessage(CHANGE_VIEW);
+                }
             }
         });
     }
+
+
+    private final int CHANGE_VIEW = 0X01;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CHANGE_VIEW:
+                    changeView();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public void onDestroyView() {
