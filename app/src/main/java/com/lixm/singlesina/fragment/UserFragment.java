@@ -4,10 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.google.gson.Gson;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.bean.UserInfoBean;
+import com.lixm.singlesina.utils.GlideCircleTransform;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.UrlUtils;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
@@ -114,6 +119,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         mRightImg.setVisibility(View.GONE);
         mRightTxt.setText("设置");
 
+        userInfoBean=new UserInfoBean();
         // 创建微博实例
         mSsoHandler = new SsoHandler(getActivity());
         // 从 SharedPreferences 中读取上次已保存好 AccessToken 等信息，
@@ -157,13 +163,14 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private void changeView() {
         mNoLoginLayout.setVisibility(View.GONE);
         mLoginLayout.setVisibility(View.VISIBLE);
-        Glide.with(getContext()).load(userInfoBean.getAvatar_large()).centerCrop().error(R.mipmap.default_head).placeholder(R.mipmap.default_head).into(mUserHead);
+        Glide.with(getContext()).load(userInfoBean.getAvatar_large()).transform(new GlideCircleTransform(getContext())).centerCrop().error(R.mipmap.default_head).placeholder(R.mipmap.default_head).into(mUserHead);
         mUserName.setText(userInfoBean.getName());
         mUserDes.setText("简介:" + userInfoBean.getDescription());
         mStatusesCount.setText(userInfoBean.getStatuses_count()+"");
         mFriendsCount.setText(userInfoBean.getFriends_count()+"");
         mFollowersCount.setText(userInfoBean.getFollowers_count()+"");
         mBackLayout.setVisibility(View.VISIBLE);
+        mBackTxt.setVisibility(View.VISIBLE);
         mBackTxt.setText("添加好友");
         mBackImg.setVisibility(View.GONE);
         mRightLayout.setVisibility(View.VISIBLE);
@@ -244,8 +251,11 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         String message = String.format(format, mAccessToken.getToken(), date);
         if (hasExisted) {
             message = getString(R.string.weibosdk_demo_token_has_existed) + "\n" + message;
+            userInfoBean.getCache(getContext());
+            if (!TextUtils.isEmpty(userInfoBean.getIdstr())){
+             changeView();
+            }else getUserInfo(mAccessToken);
         }
-        LogUtil.i("获取的token为：" + message);
     }
 
     private void getUserInfo(Oauth2AccessToken mAccessToken) {
@@ -269,7 +279,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 String content = response.body().string();
                 LogUtil.i("返回内容为：" + content);
                 userInfoBean = new Gson().fromJson(content, UserInfoBean.class);
-                if (userInfoBean != null) {
+                if (userInfoBean != null && !TextUtils.isEmpty(userInfoBean.getIdstr())) {
                     userInfoBean.writeToCache(getContext());
 //                    changeView();
                     handler.sendEmptyMessage(CHANGE_VIEW);
