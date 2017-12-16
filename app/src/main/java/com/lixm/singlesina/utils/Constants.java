@@ -17,6 +17,7 @@ public class Constants {
     public static final String PROFILE_IAMGE_URL="profile_image_url";
     public static final String COVER_IMAGE_PHONE="cover_image_phone";
     public static final String AVATAR_LARGE="avatar_large";
+    public static final String STATUSES_COUNT="statuses_count";
     public static final String FOLLOWERS_COUNT="followers_count";
     public static final String FRIENDS_COUNT="friends_count";
     public static final String REMARK="remark";

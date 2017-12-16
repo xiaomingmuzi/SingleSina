@@ -6,7 +6,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.lixm.singlesina.utils.Constants;
+import com.lixm.singlesina.utils.LogUtil;
 
+import java.io.ObjectStreamException;
 import java.util.List;
 
 /**
@@ -133,7 +135,20 @@ public class UserInfoBean  implements Parcelable{
     private int story_read_state;
     private int vclub_member;
 
-    public UserInfoBean() {
+    private static class MySingleHandler{
+        private static UserInfoBean instance=new UserInfoBean();
+    }
+    private UserInfoBean() {
+    }
+
+    public static UserInfoBean getInstance(){
+        return MySingleHandler.instance;
+    }
+
+    //该方法在反序列化时会被调用，该方法不是接口定义的方法，有点儿约定俗成的感觉
+    protected Object readResolve() throws ObjectStreamException{
+        LogUtil.i("调用了readResolve方法！");
+        return MySingleHandler.instance;
     }
 
     protected UserInfoBean(Parcel in) {
@@ -193,6 +208,8 @@ public class UserInfoBean  implements Parcelable{
         vclub_member = in.readInt();
     }
 
+
+
     public static final Creator<UserInfoBean> CREATOR = new Creator<UserInfoBean>() {
         @Override
         public UserInfoBean createFromParcel(Parcel in) {
@@ -218,6 +235,7 @@ public class UserInfoBean  implements Parcelable{
             editor.putString(Constants.PROFILE_IAMGE_URL, profile_image_url);
             editor.putString(Constants.COVER_IMAGE_PHONE, cover_image_phone);
             editor.putString(Constants.AVATAR_LARGE, avatar_large);
+            editor.putInt(Constants.STATUSES_COUNT,statuses_count);
             editor.putInt(Constants.FOLLOWERS_COUNT, followers_count);
             editor.putInt(Constants.FRIENDS_COUNT, friends_count);
             editor.putString(Constants.REMARK, remark);
@@ -235,7 +253,7 @@ public class UserInfoBean  implements Parcelable{
         editor.apply();
     }
 
-    public void getCache(Context context) {
+    public UserInfoBean getCache(Context context) {
         SharedPreferences sharedata = context.getSharedPreferences(Constants.USER_INFO, 0);
 
         idstr = sharedata.getString(Constants.UID, null);
@@ -246,12 +264,14 @@ public class UserInfoBean  implements Parcelable{
         profile_image_url = sharedata.getString(Constants.PROFILE_IAMGE_URL, null);
         cover_image_phone = sharedata.getString(Constants.COVER_IMAGE_PHONE, null);
         avatar_large = sharedata.getString(Constants.AVATAR_LARGE, null);
+        statuses_count=sharedata.getInt(Constants.STATUSES_COUNT,0);
         followers_count = sharedata.getInt(Constants.FOLLOWERS_COUNT, 0);
         friends_count = sharedata.getInt(Constants.FRIENDS_COUNT, 0);
         remark = sharedata.getString(Constants.REMARK,null);
         gender = sharedata.getString(Constants.GENDER, null);
         domain = sharedata.getString(Constants.DOMAIN, null);
         online_status = sharedata.getInt(Constants.ONLINE_STATUS, 0);
+        return this;
     }
 
     public long getId() {

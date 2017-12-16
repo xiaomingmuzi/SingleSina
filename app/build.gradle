@@ -13,12 +13,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    packagingOptions{
+    packagingOptions {
         exclude 'AndroidManifest.xml'
     }
 
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             manifest.srcFile 'src/main/AndroidManifest.xml'
             java.srcDirs = ['src/main/java']
             res.srcDirs 'src/main/res';
@@ -26,14 +26,14 @@ android {
         }
     }
 
-    signingConfigs{
-        debug{
+    signingConfigs {
+        debug {
             storeFile file('../singlesina.jks')
             storePassword "lixmsingle"
             keyAlias "Lixm"
             keyPassword "lixmsingle"
         }
-        release{
+        release {
             storeFile file('../singlesina.jks')
             storePassword "lixmsingle"
             keyAlias "Lixm"
@@ -41,13 +41,13 @@ android {
         }
     }
 
-    buildTypes{
-        release{
+    buildTypes {
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        release{
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
@@ -55,7 +55,7 @@ android {
     }
 }
 
-repositories{
+repositories {
     flatDir {
         dirs 'libs'
     }

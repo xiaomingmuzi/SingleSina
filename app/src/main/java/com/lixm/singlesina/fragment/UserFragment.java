@@ -25,9 +25,11 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.google.gson.Gson;
 import com.lixm.singlesina.R;
+import com.lixm.singlesina.activity.SetActivity;
 import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.utils.GlideCircleTransform;
 import com.lixm.singlesina.utils.LogUtil;
+import com.lixm.singlesina.utils.ToastUtils;
 import com.lixm.singlesina.utils.UrlUtils;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -107,19 +109,23 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
      */
     private SsoHandler mSsoHandler;
     private String CALLBACK_LOGING = "CALLBACK_LOGING";
+    private final int CHANGE_VIEW = 0X01;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
         unbinder = ButterKnife.bind(this, view);
-
         mBackLayout.setVisibility(View.GONE);
         mTitle.setText("我");
         mRightLayout.setVisibility(View.VISIBLE);
         mRightImg.setVisibility(View.GONE);
         mRightTxt.setText("设置");
 
-        userInfoBean=new UserInfoBean();
+        userInfoBean = UserInfoBean.getInstance();
         // 创建微博实例
         mSsoHandler = new SsoHandler(getActivity());
         // 从 SharedPreferences 中读取上次已保存好 AccessToken 等信息，
@@ -151,24 +157,40 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 mSsoHandler.authorize(new SelfWbAuthListener());
                 break;
             case R.id.btn_register:
-                Toast.makeText(getContext(), "注册", Toast.LENGTH_SHORT).show();
+                mToastUtils.showToast("注册");
                 break;
             case R.id.vip_layout:
-                Toast.makeText(getContext(), "vip", Toast.LENGTH_SHORT).show();
+                mToastUtils.showToast("欢迎购买VIP服务");
+//                ToastUtils.getInstance(getContext()).showToast("欢迎购买VIP服务");
+                break;
+            case R.id.right_layout:
+                getContext().startActivity(new Intent(getActivity(), SetActivity.class));
+                break;
+            case R.id.back_layout:
+                mToastUtils.showToast("添加好友");
                 break;
 
         }
     }
 
-    private void changeView() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        userInfoBean = userInfoBean.getCache(getContext());
+        if (!TextUtils.isEmpty(userInfoBean.getIdstr())) {
+            changeViewToLogin();
+        } else changeViewNoLogin();
+    }
+
+    private void changeViewToLogin() {
         mNoLoginLayout.setVisibility(View.GONE);
         mLoginLayout.setVisibility(View.VISIBLE);
-        Glide.with(getContext()).load(userInfoBean.getAvatar_large()).transform(new GlideCircleTransform(getContext())).centerCrop().error(R.mipmap.default_head).placeholder(R.mipmap.default_head).into(mUserHead);
+        Glide.with(getContext()).load(userInfoBean.getAvatar_large()).transform(new GlideCircleTransform(getContext())).error(R.mipmap.default_head).placeholder(R.mipmap.default_head).into(mUserHead);
         mUserName.setText(userInfoBean.getName());
         mUserDes.setText("简介:" + userInfoBean.getDescription());
-        mStatusesCount.setText(userInfoBean.getStatuses_count()+"");
-        mFriendsCount.setText(userInfoBean.getFriends_count()+"");
-        mFollowersCount.setText(userInfoBean.getFollowers_count()+"");
+        mStatusesCount.setText(userInfoBean.getStatuses_count() + "");
+        mFriendsCount.setText(userInfoBean.getFriends_count() + "");
+        mFollowersCount.setText(userInfoBean.getFollowers_count() + "");
         mBackLayout.setVisibility(View.VISIBLE);
         mBackTxt.setVisibility(View.VISIBLE);
         mBackTxt.setText("添加好友");
@@ -177,6 +199,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         mRightImg.setVisibility(View.GONE);
         mRightTxt.setText("设置");
     }
+
+    private void changeViewNoLogin() {
+        mNoLoginLayout.setVisibility(View.VISIBLE);
+        mLoginLayout.setVisibility(View.GONE);
+    }
+
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -251,10 +279,10 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         String message = String.format(format, mAccessToken.getToken(), date);
         if (hasExisted) {
             message = getString(R.string.weibosdk_demo_token_has_existed) + "\n" + message;
-            userInfoBean.getCache(getContext());
-            if (!TextUtils.isEmpty(userInfoBean.getIdstr())){
-             changeView();
-            }else getUserInfo(mAccessToken);
+            userInfoBean = userInfoBean.getCache(getContext());
+            if (!TextUtils.isEmpty(userInfoBean.getIdstr())) {
+                changeViewToLogin();
+            } else getUserInfo(mAccessToken);
         }
     }
 
@@ -289,13 +317,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-    private final int CHANGE_VIEW = 0X01;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CHANGE_VIEW:
-                    changeView();
+                    changeViewToLogin();
                     break;
             }
             super.handleMessage(msg);

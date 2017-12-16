@@ -127,7 +127,7 @@
                         android:layout_height="55dp"
                         android:layout_marginBottom="12dp"
                         android:layout_marginTop="12dp"
-                        android:background="@mipmap/default_head" />
+                        android:src="@mipmap/default_head" />
 
                     <TextView
                         android:id="@+id/user_name"

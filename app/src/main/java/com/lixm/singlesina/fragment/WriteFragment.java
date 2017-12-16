@@ -15,6 +15,12 @@ import com.lixm.singlesina.R;
  */
 
 public class WriteFragment extends BaseFragment {
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_write, null);
     }
