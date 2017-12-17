@@ -19,7 +19,7 @@
             android:text="添加好友"
             android:layout_centerVertical="true"
             android:visibility="gone"
-            android:textColor="@color/color_4a"/>
+            android:textColor="@color/color_26"/>
 
         <ImageView
             android:id="@+id/back_img"
@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="标题"
-        android:textColor="@color/color_33"
+        android:textColor="@color/color_26"
         android:textSize="16sp" />
 
     <RelativeLayout
@@ -62,7 +62,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="功能"
-            android:textColor="@color/color_99"
+            android:textColor="@color/color_26"
             android:textSize="14sp" />
     </RelativeLayout>
 </RelativeLayout>

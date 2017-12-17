@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.activity.SetActivity;
 import com.lixm.singlesina.bean.UserInfoBean;
+import com.lixm.singlesina.customview.UserItemView;
 import com.lixm.singlesina.utils.GlideCircleTransform;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.ToastUtils;
@@ -38,6 +39,7 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,6 +98,10 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     TextView mFriendsCount;
     @BindView(R.id.followers_count)
     TextView mFollowersCount;
+    private int[] ids = new int[]{R.id.item_friend_layout, R.id.item_picture_layout, R.id.item_praise_layout, R.id.item_wallet_layout, R.id.item_sport_layout,
+            R.id.item_no_gprs_layout, R.id.item_friend_service_layout, R.id.item_friend_top_layout, R.id.item_custom_layout, R.id.item_drafts_layout};
+    private ArrayList<UserItemView> userItemViews;
+    private String[] contents=new String[]{};
 
     private UserInfoBean userInfoBean;
     private Unbinder unbinder;
@@ -136,6 +142,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         }
 
         getActivity().registerReceiver(receiver, new IntentFilter(CALLBACK_LOGING));
+        userItemViews=new ArrayList<>();
+        for (int i=0;i<ids.length;i++){
+            UserItemView userItemView=view.findViewById(ids[i]);
+
+            userItemViews.add(userItemView);
+        }
         initListener();
 
         return view;
