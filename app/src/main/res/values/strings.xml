@@ -189,4 +189,21 @@
     <string name="weibosdk_demo_launch_poi_page">POI页面</string>
     <string name="weibosdk_demo_launch_mblog_detail">查看微博正文</string>
     <string name="weibosdk_demo_launch_qrcode">扫描二维码界面</string>
+
+    <string name="user_item_friend">新的好友</string>
+    <string name="user_item_pictures">我的相册</string>
+    <string name="user_item_praise">我的赞</string>
+    <string name="user_item_praise2">收藏，移动这里了</string>
+    <string name="user_item_wallet">微博钱包</string>
+    <string name="user_item_wallet2">卖旧手机，马上收钱</string>
+    <string name="user_item_sport">微博运动</string>
+    <string name="user_item_sport2">每天一万步，与健康更接近！</string>
+    <string name="user_item_gprs">免流量</string>
+    <string name="user_item_gprs2">5G流量，限量领</string>
+    <string name="user_item_funs_service">粉丝服务</string>
+    <string name="user_item_funs_service2">写文章、发点评、赚粉丝</string>
+    <string name="user_item_funs_top">粉丝头条</string>
+    <string name="user_item_funs_top2">推广博文及账号的利器</string>
+    <string name="user_item_service_center">客服中心</string>
+    <string name="user_item_draft">草稿箱</string>
 </resources>

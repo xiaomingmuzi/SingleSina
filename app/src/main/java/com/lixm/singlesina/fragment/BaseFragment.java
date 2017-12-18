@@ -3,13 +3,11 @@ package com.lixm.singlesina.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.ToastUtils;
+
+import butterknife.Unbinder;
 
 /**
  * @author Lixm
@@ -20,6 +18,7 @@ import com.lixm.singlesina.utils.ToastUtils;
 public class BaseFragment extends Fragment {
 
     public ToastUtils mToastUtils;
+    public Unbinder mUnbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +38,12 @@ public class BaseFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mUnbinder!=null)
+            mUnbinder.unbind();
+    }
 
     @Override
     public void onDestroy() {

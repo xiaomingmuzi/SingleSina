@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:lixm="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -265,6 +266,8 @@
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_friend_layout"
                 android:layout_width="match_parent"
+                lixm:img_bg="@mipmap/user_item_friend"
+                lixm:text1_content="@string/user_item_friend"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp" />
 
@@ -272,6 +275,8 @@
                 android:id="@+id/item_picture_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                lixm:img_bg="@mipmap/user_item_pictures"
+                lixm:text1_content="@string/user_item_pictures"
                 android:layout_marginTop="12dp" />
 
             <View
@@ -282,12 +287,18 @@
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_praise_layout"
                 android:layout_width="match_parent"
+                lixm:img_bg="@mipmap/user_item_praise"
+                lixm:text1_content="@string/user_item_praise"
+                lixm:text2_content="@string/user_item_praise2"
                 android:layout_height="50dp" />
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_wallet_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                lixm:img_bg="@mipmap/user_item_wallet"
+                lixm:text1_content="@string/user_item_wallet"
+                lixm:text2_content="@string/user_item_wallet"
                 android:layout_marginTop="12dp" />
 
             <View
@@ -297,7 +308,9 @@
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_sport_layout"
-
+                lixm:img_bg="@mipmap/user_item_sport"
+                lixm:text1_content="@string/user_item_sport"
+                lixm:text2_content="@string/user_item_sport2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
@@ -308,13 +321,17 @@
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_no_gprs_layout"
-
+                lixm:img_bg="@mipmap/user_item_gprs"
+                lixm:text1_content="@string/user_item_gprs"
+                lixm:text2_content="@string/user_item_gprs2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_friend_service_layout"
-
+                lixm:img_bg="@mipmap/user_item_funs_service"
+                lixm:text1_content="@string/user_item_funs_service"
+                lixm:text2_content="@string/user_item_funs_service2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp" />
@@ -326,20 +343,24 @@
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_friend_top_layout"
-
+                lixm:img_bg="@mipmap/user_item_funs_top"
+                lixm:text1_content="@string/user_item_funs_top"
+                lixm:text2_content="@string/user_item_funs_top2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_custom_layout"
-
+                lixm:img_bg="@mipmap/user_item_service_center"
+                lixm:text1_content="@string/user_item_service_center"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp" />
 
             <com.lixm.singlesina.customview.UserItemView
                 android:id="@+id/item_drafts_layout"
-
+                lixm:img_bg="@mipmap/user_item_draft"
+                lixm:text1_content="@string/user_item_draft"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="12dp"

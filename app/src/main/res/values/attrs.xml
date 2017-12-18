@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserItemView">
+        <attr name="img_bg" format="integer" />
+        <attr name="text1_content" format="string"/>
+        <attr name="text2_content" format="string"/>
+    </declare-styleable>
+</resources>

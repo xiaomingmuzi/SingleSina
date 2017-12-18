@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.google.gson.Gson;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.activity.SetActivity;
@@ -30,7 +27,6 @@ import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.customview.UserItemView;
 import com.lixm.singlesina.utils.GlideCircleTransform;
 import com.lixm.singlesina.utils.LogUtil;
-import com.lixm.singlesina.utils.ToastUtils;
 import com.lixm.singlesina.utils.UrlUtils;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -43,7 +39,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -101,10 +96,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private int[] ids = new int[]{R.id.item_friend_layout, R.id.item_picture_layout, R.id.item_praise_layout, R.id.item_wallet_layout, R.id.item_sport_layout,
             R.id.item_no_gprs_layout, R.id.item_friend_service_layout, R.id.item_friend_top_layout, R.id.item_custom_layout, R.id.item_drafts_layout};
     private ArrayList<UserItemView> userItemViews;
-    private String[] contents=new String[]{};
 
     private UserInfoBean userInfoBean;
-    private Unbinder unbinder;
     /**
      * 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能
      */
@@ -124,7 +117,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
-        unbinder = ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         mBackLayout.setVisibility(View.GONE);
         mTitle.setText("我");
         mRightLayout.setVisibility(View.VISIBLE);
@@ -145,7 +138,16 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         userItemViews=new ArrayList<>();
         for (int i=0;i<ids.length;i++){
             UserItemView userItemView=view.findViewById(ids[i]);
+            userItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (int i=0;i<ids.length;i++){
+                        if (v.getId()==ids[i]){
 
+                        }
+                    }
+                }
+            });
             userItemViews.add(userItemView);
         }
         initListener();
@@ -181,7 +183,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
             case R.id.back_layout:
                 mToastUtils.showToast("添加好友");
                 break;
-
         }
     }
 
@@ -343,7 +344,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        unbinder.unbind();
         super.onDestroyView();
     }
 }
