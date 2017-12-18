@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Lixm
- * @date 2017/12/7
+ * @date 2017/14/7
  * @detail
  */
 
@@ -63,12 +63,12 @@ public class MainFragment extends BaseFragment implements RadioGroup.OnCheckedCh
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.attention) {
             mVp.setCurrentItem(0);
-            mAttention.setTextSize(16);
-            mHot.setTextSize(12);
+            mAttention.setTextSize(18);
+            mHot.setTextSize(14);
         } else {
             mVp.setCurrentItem(1);
-            mAttention.setTextSize(12);
-            mHot.setTextSize(16);
+            mAttention.setTextSize(14);
+            mHot.setTextSize(18);
         }
     }
 
@@ -81,12 +81,12 @@ public class MainFragment extends BaseFragment implements RadioGroup.OnCheckedCh
     public void onPageSelected(int position) {
         if (position==0){
             mAttention.setChecked(true);
-            mAttention.setTextSize(16);
-            mHot.setTextSize(12);
+            mAttention.setTextSize(18);
+            mHot.setTextSize(14);
         }else{
             mHot.setChecked(true);
-            mAttention.setTextSize(12);
-            mHot.setTextSize(16);
+            mAttention.setTextSize(14);
+            mHot.setTextSize(18);
         }
     }
 
