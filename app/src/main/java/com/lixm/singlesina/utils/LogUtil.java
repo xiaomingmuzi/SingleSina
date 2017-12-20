@@ -29,7 +29,7 @@ import android.util.Log;
  */
 public class LogUtil {
 
-    public static String customTagPrefix = "x_log";
+    public static String customTagPrefix = "Lixm";
     public static boolean isDebug=true;
 
     private LogUtil() {

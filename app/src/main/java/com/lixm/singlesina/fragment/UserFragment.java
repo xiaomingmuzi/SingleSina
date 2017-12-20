@@ -1,9 +1,11 @@
 package com.lixm.singlesina.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,11 +22,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.activity.SetActivity;
 import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.customview.UserItemView;
+import com.lixm.singlesina.glide.ProgressInterceptor;
+import com.lixm.singlesina.interfaces.ProgressListener;
 import com.lixm.singlesina.utils.GlideCircleTransform;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.UrlUtils;
@@ -98,6 +107,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private ArrayList<UserItemView> userItemViews;
 
     private UserInfoBean userInfoBean;
+    private ProgressDialog progressDialog;
     /**
      * 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能
      */
@@ -133,6 +143,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         if (mAccessToken.isSessionValid()) {
             updateTokenView(true);
         }
+        progressDialog=new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         getActivity().registerReceiver(receiver, new IntentFilter(CALLBACK_LOGING));
         userItemViews=new ArrayList<>();
@@ -198,7 +210,35 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private void changeViewToLogin() {
         mNoLoginLayout.setVisibility(View.GONE);
         mLoginLayout.setVisibility(View.VISIBLE);
-        Glide.with(getContext()).load(userInfoBean.getAvatar_large()).transform(new GlideCircleTransform(getContext())).error(R.mipmap.default_head).placeholder(R.mipmap.default_head).into(mUserHead);
+        ProgressInterceptor.addListener("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg", new ProgressListener() {
+            @Override
+            public void onProgress(int progress) {
+                progressDialog.setProgress(progress);
+            }
+        });
+        Glide.with(getContext())
+//                .load(userInfoBean.getAvatar_large())
+                .load("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg")
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .transform(new GlideCircleTransform(getContext()))
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .error(R.mipmap.default_head)
+                .placeholder(R.mipmap.default_head)
+                .into(new GlideDrawableImageViewTarget(mUserHead){
+                    @Override
+                    public void onLoadStarted(Drawable placeholder) {
+                        super.onLoadStarted(placeholder);
+                        progressDialog.show();
+                    }
+
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+                        super.onResourceReady(resource, animation);
+                        progressDialog.dismiss();
+                        ProgressInterceptor.removeListener("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg");
+                    }
+                });
         mUserName.setText(userInfoBean.getName());
         mUserDes.setText("简介:" + userInfoBean.getDescription());
         mStatusesCount.setText(userInfoBean.getStatuses_count() + "");

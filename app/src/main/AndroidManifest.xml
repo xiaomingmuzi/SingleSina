@@ -23,6 +23,10 @@
         <meta-data
             android:name="WEIBO_CHANNEL"
             android:value="weibo" />
+        <meta-data
+            android:name="com.lixm.singlesina.glide.MyGlideModule"
+            android:value="GlideModule"
+            />
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
