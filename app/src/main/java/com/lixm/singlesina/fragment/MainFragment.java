@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.lixm.singlesina.R;
+import com.lixm.singlesina.customview.GestureLineView;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,8 @@ public class MainFragment extends BaseFragment implements RadioGroup.OnCheckedCh
     RadioButton mHot;
     @BindView(R.id.main_vp)
     ViewPager mVp;
+    @BindView(R.id.gesture_line)
+    GestureLineView mLineView;
     private ArrayList<BaseFragment> fragments;
     private MyAdapter myAdapter;
 
@@ -72,18 +75,29 @@ public class MainFragment extends BaseFragment implements RadioGroup.OnCheckedCh
         }
     }
 
+    private float oldPositionOffset = 0;
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+//        0页到1页：positionOffset：0 – 1 变化
+//        1页到0页： positionOffset：1 – 0 变化
+//        Value from [0, 1) indicating the offset from the page at position.
+//        LogUtil.w("positionOffset：" + positionOffset + "  oldPositionOffset：" + oldPositionOffset);
+        if (oldPositionOffset != 0 && positionOffset != 0) {
+            if (oldPositionOffset != positionOffset){
+                mLineView.slidDistance(positionOffset > oldPositionOffset ? 1 : 0, positionOffset);
+            }
+        }
+        oldPositionOffset = positionOffset;
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (position==0){
+        if (position == 0) {
             mAttention.setChecked(true);
             mAttention.setTextSize(18);
             mHot.setTextSize(14);
-        }else{
+        } else {
             mHot.setChecked(true);
             mAttention.setTextSize(14);
             mHot.setTextSize(18);

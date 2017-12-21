@@ -12,11 +12,18 @@ import com.sina.weibo.sdk.auth.AuthInfo;
  * @detail
  */
 
-public class BassApplication extends Application {
+public class BaseApplication extends Application {
+    public static BaseApplication mContext;
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext=this;
         WbSdk.install(this,new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
 
+    }
+
+    // 对外暴露上下文
+    public static BaseApplication getApplication() {
+        return mContext;
     }
 }

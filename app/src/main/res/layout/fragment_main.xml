@@ -1,46 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:lixm="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RadioGroup
-        android:id="@+id/main_rg"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="40dp">
 
-        <RadioButton
-            android:id="@+id/attention"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:layout_marginRight="15dp"
-            android:checked="true"
-            android:textColor="@color/main_top_txt"
-            android:textSize="16sp"
-            android:text="关注" />
+        <RadioGroup
+            android:id="@+id/main_rg"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/hot"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:button="@null"
-            android:textColor="@color/main_top_txt"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:text="热门" />
+            <RadioButton
+                android:id="@+id/attention"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:checked="true"
+                android:text="关注"
+                android:gravity="center"
+                android:textColor="@color/main_top_txt"
+                android:textSize="16sp" />
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/hot"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:text="热门"
+                android:textColor="@color/main_top_txt"
+                android:textSize="14sp" />
 
-<android.support.v4.view.ViewPager
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/main_vp"
-    ></android.support.v4.view.ViewPager>
+
+        </RadioGroup>
+        <com.lixm.singlesina.customview.GestureLineView
+            android:layout_width="150dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:id="@+id/gesture_line"
+            lixm:start_color="@color/line_start"
+            lixm:end_color="@color/line_end"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="3dp" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>
