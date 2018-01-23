@@ -9,13 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.lixm.singlesina.R;
-import com.lixm.singlesina.customview.GestureLineView;
+import com.lixm.singlesina.customview.SlidingTabLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,18 +25,12 @@ import butterknife.ButterKnife;
  * @detail
  */
 
-public class MainFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+public class MainFragment extends BaseFragment  {
 
-    @BindView(R.id.main_rg)
-    RadioGroup mRg;
-    @BindView(R.id.attention)
-    RadioButton mAttention;
-    @BindView(R.id.hot)
-    RadioButton mHot;
     @BindView(R.id.main_vp)
     ViewPager mVp;
-    @BindView(R.id.gesture_line)
-    GestureLineView mLineView;
+    @BindView(R.id.id_main_indicator)
+    SlidingTabLayout mSlidingTabLayout;
     private ArrayList<BaseFragment> fragments;
     private MyAdapter myAdapter;
 
@@ -52,62 +45,44 @@ public class MainFragment extends BaseFragment implements RadioGroup.OnCheckedCh
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
         mUnbinder = ButterKnife.bind(this, view);
-        mRg.setOnCheckedChangeListener(this);
         fragments = new ArrayList<>();
         fragments.add(new AttentionFragment());
         fragments.add(new HotFragment());
         myAdapter = new MyAdapter(getChildFragmentManager());
         mVp.setAdapter(myAdapter);
-        mVp.addOnPageChangeListener(this);
+        String[] titles = new String[]{"关注", "热门"};
+        mVp.setOffscreenPageLimit(titles.length - 1);
+        ArrayList<String> titleArray = new ArrayList<>();
+        Collections.addAll(titleArray, titles);
+        mSlidingTabLayout.setViewPager(mVp, titleArray.toArray(new String[titles.length]));
         return view;
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (checkedId == R.id.attention) {
-            mVp.setCurrentItem(0);
-            mAttention.setTextSize(18);
-            mHot.setTextSize(14);
-        } else {
-            mVp.setCurrentItem(1);
-            mAttention.setTextSize(14);
-            mHot.setTextSize(18);
-        }
-    }
-
-    private float oldPositionOffset = 0;
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//        0页到1页：positionOffset：0 – 1 变化
-//        1页到0页： positionOffset：1 – 0 变化
-//        Value from [0, 1) indicating the offset from the page at position.
-//        LogUtil.w("positionOffset：" + positionOffset + "  oldPositionOffset：" + oldPositionOffset);
-        if (oldPositionOffset != 0 && positionOffset != 0) {
-            if (oldPositionOffset != positionOffset){
-                mLineView.slidDistance(positionOffset > oldPositionOffset ? 1 : 0, positionOffset);
-            }
-        }
-        oldPositionOffset = positionOffset;
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        if (position == 0) {
-            mAttention.setChecked(true);
-            mAttention.setTextSize(18);
-            mHot.setTextSize(14);
-        } else {
-            mHot.setChecked(true);
-            mAttention.setTextSize(14);
-            mHot.setTextSize(18);
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
+//    @Override
+//    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+////        0页到1页：positionOffset：0 – 1 变化
+////        1页到0页： positionOffset：1 – 0 变化
+////        Value from [0, 1) indicating the offset from the page at position.
+////        LogUtil.w("positionOffset：" + positionOffset + "  oldPositionOffset：" + oldPositionOffset);
+//        if (oldPositionOffset != 0 && positionOffset != 0) {
+//            if (oldPositionOffset != positionOffset){
+//                mLineView.slidDistance(positionOffset > oldPositionOffset ? 1 : 0, positionOffset);
+//            }
+//        }
+//        oldPositionOffset = positionOffset;
+//
+//
+//
+//    }
+//
+//    @Override
+//    public void onPageSelected(int position) {
+//    }
+//
+//    @Override
+//    public void onPageScrollStateChanged(int state) {
+//
+//    }
 
     class MyAdapter extends FragmentPagerAdapter {
         public MyAdapter(FragmentManager fm) {

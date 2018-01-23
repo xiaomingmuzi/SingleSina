@@ -80,6 +80,11 @@ public class LogUtil {
         Log.i(tag, content);
     }
 
+    public static void i(String TAG,String content){
+        if (!isDebug)return;
+        Log.i(TAG,content);
+    }
+
     public static void i(String content, Throwable tr) {
         if (!isDebug) return;
         String tag = generateTag();

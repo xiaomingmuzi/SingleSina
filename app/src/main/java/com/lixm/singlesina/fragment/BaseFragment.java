@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.ToastUtils;
 
@@ -19,11 +20,13 @@ public class BaseFragment extends Fragment {
 
     public ToastUtils mToastUtils;
     public Unbinder mUnbinder;
+    public UserInfoBean mUserInfoBean;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mToastUtils = ToastUtils.getInstance(getContext());
+        mUserInfoBean=UserInfoBean.getInstance();
         LogUtil.w("BaseFragment  onCreate  " + (mToastUtils == null));
     }
 
@@ -31,6 +34,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mUserInfoBean = mUserInfoBean.getCache(getContext());
     }
 
     @Override

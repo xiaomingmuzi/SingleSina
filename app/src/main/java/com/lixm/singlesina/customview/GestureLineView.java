@@ -51,11 +51,11 @@ public class GestureLineView extends View {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
 
-        final TypedArray attributes=context.getTheme().obtainStyledAttributes(attrs,R.styleable.GestureLineView,defStyleAttr,0);
-        startColr=attributes.getColor(R.styleable.GestureLineView_start_color,getResources().getColor(R.color.line_start));
-        endColor=attributes.getColor(R.styleable.GestureLineView_end_color,getResources().getColor(R.color.line_end));
-        centerPadding=attributes.getDimension(R.styleable.GestureLineView_center_padding,60);
-        radius= (int) attributes.getDimension(R.styleable.GestureLineView_radius,UIUtils.dip2px(2));
+        final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.GestureLineView, defStyleAttr, 0);
+        startColr = attributes.getColor(R.styleable.GestureLineView_start_color, getResources().getColor(R.color.line_start));
+        endColor = attributes.getColor(R.styleable.GestureLineView_end_color, getResources().getColor(R.color.line_end));
+        centerPadding = attributes.getDimension(R.styleable.GestureLineView_center_padding, 60);
+        radius = (int) attributes.getDimension(R.styleable.GestureLineView_radius, UIUtils.dip2px(2));
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setAntiAlias(true);
@@ -83,7 +83,7 @@ public class GestureLineView extends View {
         super.onDraw(canvas);
         if (mCanvas == null)
             this.mCanvas = canvas;
-        LogUtil.i("========width：" + width + "  rightPoi：" + rightPoi + "  lefrPoi：" + leftPoi);
+        LogUtil.i("========width：" + width + "  height：" + height +"  radius："+radius + "  rightPoi：" + rightPoi + "  lefrPoi：" + leftPoi);
         RectF rectF = new RectF(leftPoi, 0, rightPoi, height);
         canvas.drawRoundRect(rectF, radius, radius, mPaint);
     }
@@ -93,6 +93,7 @@ public class GestureLineView extends View {
      * @param dis     变化的距离
      */
     public void slidDistance(int forward, float dis) {
+        LogUtil.w("forward：" + forward + "   dis：" + dis);
         if (forward == 1) {
             if (dis < 0.5) {
                 rightPoi = startPadding + lineWidth + (lineWidth + 2 * centerPadding) * 2 * dis;
@@ -112,6 +113,7 @@ public class GestureLineView extends View {
                 rightPoi = startPadding + lineWidth + (lineWidth + 2 * centerPadding) * 2 * dis;
             }
         }
+        LogUtil.e("leftPoi：" + leftPoi + "   rightPoi：" + rightPoi);
         postInvalidate();
     }
 

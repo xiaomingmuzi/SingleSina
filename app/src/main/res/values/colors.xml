@@ -29,6 +29,7 @@
     <color name="yellow_txt">#FF8200</color>
     <color name="line_end">#FF3900</color>
     <color name="line_start">#FF8701</color>
+    <color name="tab_text_color_selected">#df444a</color>
 
 
 

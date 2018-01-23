@@ -210,15 +210,15 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private void changeViewToLogin() {
         mNoLoginLayout.setVisibility(View.GONE);
         mLoginLayout.setVisibility(View.VISIBLE);
-        ProgressInterceptor.addListener("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg", new ProgressListener() {
+        ProgressInterceptor.addListener(userInfoBean.getAvatar_large(), new ProgressListener() {
             @Override
             public void onProgress(int progress) {
                 progressDialog.setProgress(progress);
             }
         });
         Glide.with(getContext())
-//                .load(userInfoBean.getAvatar_large())
-                .load("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg")
+                .load(userInfoBean.getAvatar_large())
+//                .load("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg")
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .transform(new GlideCircleTransform(getContext()))
