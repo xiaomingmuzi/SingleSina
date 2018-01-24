@@ -236,7 +236,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
                         super.onResourceReady(resource, animation);
                         progressDialog.dismiss();
-                        ProgressInterceptor.removeListener("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg");
+                        ProgressInterceptor.removeListener(userInfoBean.getAvatar_large());
                     }
                 });
         mUserName.setText(userInfoBean.getName());

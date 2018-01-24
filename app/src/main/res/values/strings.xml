@@ -206,4 +206,7 @@
     <string name="user_item_funs_top2">推广博文及账号的利器</string>
     <string name="user_item_service_center">客服中心</string>
     <string name="user_item_draft">草稿箱</string>
+
+    <string name="net_error">网络异常，请稍后再试</string>
+    <string name="data_error">数据异常，请稍后再试</string>
 </resources>

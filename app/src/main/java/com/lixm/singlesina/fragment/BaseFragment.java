@@ -27,7 +27,6 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mToastUtils = ToastUtils.getInstance(getContext());
         mUserInfoBean=UserInfoBean.getInstance();
-        LogUtil.w("BaseFragment  onCreate  " + (mToastUtils == null));
     }
 
 

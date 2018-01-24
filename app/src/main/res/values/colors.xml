@@ -25,11 +25,19 @@
     <color name="color_94">#949494</color>
     <color name="color_4a">#4A4A4A</color>
     <color name="color_26">#262626</color>
+    <color name="color_7c">#7C7C7C</color>
+    <color name="color_82">#828282</color>
+    <color name="color_fe">#fefefe</color>
+    <color name="color_f7">#f7f7f7</color>
+    <color name="color_5d">#5d5d5d</color>
+    <color name="color_63">#636363</color>
 
     <color name="yellow_txt">#FF8200</color>
     <color name="line_end">#FF3900</color>
     <color name="line_start">#FF8701</color>
     <color name="tab_text_color_selected">#df444a</color>
+    <color name="color_from">#517EB0</color>
+    <color name="color_name">#F46200</color>
 
 
 
