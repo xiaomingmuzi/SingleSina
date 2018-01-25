@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="\@中国天气：听说,今天很多热都在等雪，就像初恋的少女等待男友，怕他不来，又怕他乱来。"
         android:textColor="@color/color_5d"
         android:textSize="15sp"
@@ -22,8 +22,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <GridView
-        android:id="@+id/picture_view"
+    <com.lixm.singlesina.customview.NoScrollGridView
+        android:id="@+id/retweeted_picture_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

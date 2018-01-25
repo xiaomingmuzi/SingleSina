@@ -44,6 +44,13 @@ public class AttentionFragmentAdapter extends BaseRecyclerViewAdapter {
         }
         holder.from.setText(Html.fromHtml(source));
         holder.content1.setText(statusesBean.getText());
+        AttentionBean.StatusesBean.RetweetedStatusBean  retweetedStatusBean= statusesBean.getRetweeted_status();
+        if (retweetedStatusBean!=null){
+            holder.retweeted_item.setVisibility(View.VISIBLE);
+            holder.retweeted_name_content.setText("@"+retweetedStatusBean.getUser().getScreen_name()+"："+retweetedStatusBean.getText());
+        }else{
+            holder.retweeted_item.setVisibility(View.GONE);
+        }
         holder.retweeted_txt.setText(statusesBean.getReposts_count() + "");
         holder.comment_txt.setText(statusesBean.getComments_count() + "");
         holder.praise_text.setText(statusesBean.getAttitudes_count() + "");

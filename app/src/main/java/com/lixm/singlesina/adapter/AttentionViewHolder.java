@@ -23,6 +23,8 @@ public class AttentionViewHolder extends RecyclerView.ViewHolder {
     public TextView from;
     public TextView content1;
     public View retweeted_item;
+    public TextView retweeted_name_content;
+    public NoScrollGridView retweeted_picture_view;
     public RelativeLayout one_img_layout;
     public ImageView one_img;
     public TextView one_long_txt;
@@ -44,6 +46,8 @@ public class AttentionViewHolder extends RecyclerView.ViewHolder {
         from = view.findViewById(R.id.from);
         content1 = view.findViewById(R.id.content1);
         retweeted_item = view.findViewById(R.id.retweeted_item);
+        retweeted_name_content=view.findViewById(R.id.retweeted_name_content);
+        retweeted_picture_view=view.findViewById(R.id.retweeted_picture_view);
         picture1 = view.findViewById(R.id.picture_view1);
         one_img_layout=view.findViewById(R.id.one_img_layout);
         one_img=view.findViewById(R.id.one_img);

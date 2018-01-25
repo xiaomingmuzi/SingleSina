@@ -15,7 +15,8 @@
 
     <declare-styleable name="SlidingTabLayout">
         <!-- indicator -->
-        <attr name="tl_indicator_color"/>
+        <attr name="tl_indicator_start_color"/>
+        <attr name="tl_indicator_end_color"/>
         <attr name="tl_indicator_height"/>
         <attr name="tl_indicator_width"/>
         <attr name="tl_indicator_margin_left"/>
@@ -44,7 +45,8 @@
         <attr name="tl_tab_width"/>
 
         <!-- title -->
-        <attr name="tl_textsize"/>
+        <attr name="tl_textSelectsize"/>
+        <attr name="tl_textUnselectsize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
