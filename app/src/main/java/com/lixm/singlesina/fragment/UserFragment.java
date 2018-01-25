@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,12 +20,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.activity.SetActivity;
@@ -34,7 +27,7 @@ import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.customview.UserItemView;
 import com.lixm.singlesina.glide.ProgressInterceptor;
 import com.lixm.singlesina.interfaces.ProgressListener;
-import com.lixm.singlesina.utils.GlideCircleTransform;
+import com.lixm.singlesina.utils.GlideUtils;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.UrlUtils;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
@@ -216,29 +209,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 progressDialog.setProgress(progress);
             }
         });
-        Glide.with(getContext())
-                .load(userInfoBean.getAvatar_large())
-//                .load("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg")
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .transform(new GlideCircleTransform(getContext()))
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .error(R.mipmap.default_head)
-                .placeholder(R.mipmap.default_head)
-                .into(new GlideDrawableImageViewTarget(mUserHead){
-                    @Override
-                    public void onLoadStarted(Drawable placeholder) {
-                        super.onLoadStarted(placeholder);
-                        progressDialog.show();
-                    }
-
-                    @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                        super.onResourceReady(resource, animation);
-                        progressDialog.dismiss();
-                        ProgressInterceptor.removeListener(userInfoBean.getAvatar_large());
-                    }
-                });
+        GlideUtils.getCircleHeadWitdhDialog(getContext(),userInfoBean.getAvatar_large(),mUserHead,progressDialog);
         mUserName.setText(userInfoBean.getName());
         mUserDes.setText("简介:" + userInfoBean.getDescription());
         mStatusesCount.setText(userInfoBean.getStatuses_count() + "");

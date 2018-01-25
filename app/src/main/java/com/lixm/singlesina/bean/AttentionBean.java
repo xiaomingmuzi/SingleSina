@@ -197,7 +197,7 @@ public class AttentionBean {
         private String in_reply_ro_status_id;//（暂未支持）回复ID
         private String in_reply_to_user_id;//（暂未支持）回复人UID
         private String in_reply_to_screen_name;//（暂未支持）回复人昵称
-        private List<?> pic_urls;//图片
+        private List<PicUrlsBean> pic_urls;//图片
         private GeoBean geo;//地理信息字段 详细
         private String mid;//微博MID
         private String thumbnail_pic;//缩略图片地址，没有时不返回此字段
@@ -598,11 +598,11 @@ public class AttentionBean {
             this.stickerID = stickerID;
         }
 
-        public List<?> getPic_urls() {
+        public List<PicUrlsBean> getPic_urls() {
             return pic_urls;
         }
 
-        public void setPic_urls(List<?> pic_urls) {
+        public void setPic_urls(List<PicUrlsBean> pic_urls) {
             this.pic_urls = pic_urls;
         }
 
@@ -646,6 +646,21 @@ public class AttentionBean {
             this.biz_ids = biz_ids;
         }
 
+        public static class PicUrlsBean {
+            /**
+             * thumbnail_pic : http://wx1.sinaimg.cn/thumbnail/006HMUtTly1fnslk6k47hj30by0by0tk.jpg
+             */
+
+            private String thumbnail_pic;
+
+            public String getThumbnail_pic() {
+                return thumbnail_pic;
+            }
+
+            public void setThumbnail_pic(String thumbnail_pic) {
+                this.thumbnail_pic = thumbnail_pic;
+            }
+        }
 
         public static class RetweetedStatusBean {
             /**

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lixm.singlesina.adapter.AttentionViewHolder;
+
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ import java.util.List;
  * @detail
  */
 
-public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
+public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<AttentionViewHolder> {
 
     protected Context mContext;
     protected List<? extends Object> mDatas;
@@ -30,17 +32,17 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<ViewH
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AttentionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(layoutId, parent, false);
-        return new ViewHolder(view);
+        return new AttentionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(AttentionViewHolder holder, int position) {
         getItemView(holder, position);
     }
 
-    public abstract void getItemView(ViewHolder holder, int position);
+    public abstract void getItemView(AttentionViewHolder holder, int position);
 
     @Override
     public int getItemCount() {

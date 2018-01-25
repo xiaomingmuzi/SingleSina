@@ -27,13 +27,13 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mToastUtils = ToastUtils.getInstance(getContext());
         mUserInfoBean=UserInfoBean.getInstance();
+        mUserInfoBean = mUserInfoBean.getCache(getContext());
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        mUserInfoBean = mUserInfoBean.getCache(getContext());
     }
 
     @Override

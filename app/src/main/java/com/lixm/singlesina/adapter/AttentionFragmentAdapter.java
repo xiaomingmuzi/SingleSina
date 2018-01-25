@@ -2,15 +2,13 @@ package com.lixm.singlesina.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.Target;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.adapter.utils.BaseRecyclerViewAdapter;
-import com.lixm.singlesina.adapter.utils.ViewHolder;
 import com.lixm.singlesina.bean.AttentionBean;
-import com.lixm.singlesina.utils.GlideCircleTransform;
+import com.lixm.singlesina.utils.ConstantMethodUtils;
+import com.lixm.singlesina.utils.GlideUtils;
 import com.lixm.singlesina.utils.TimeUtils;
 
 import java.util.List;
@@ -28,72 +26,44 @@ public class AttentionFragmentAdapter extends BaseRecyclerViewAdapter {
         super(mContext, mDatas, R.layout.attention_item);
     }
 
-    public void bindData(List<?> datas){
-        mDatas=datas;
+    public void bindData(List<?> datas) {
+        mDatas = datas;
     }
 
     @Override
-    public void getItemView(ViewHolder holder, int position) {
+    public void getItemView(AttentionViewHolder holder, int position) {
 
-        AttentionBean.StatusesBean statusesBean= (AttentionBean.StatusesBean) mDatas.get(position);
-        Glide.with(mContext)
-                .load(statusesBean.getUser().getProfile_image_url())
-//                .load("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg")
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .transform(new GlideCircleTransform(mContext))
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .error(R.mipmap.default_head)
-                .placeholder(R.mipmap.default_head)
-                .into(holder.head);
+        AttentionBean.StatusesBean statusesBean = (AttentionBean.StatusesBean) mDatas.get(position);
+        GlideUtils.getCircleHead(mContext, statusesBean.getUser().getAvatar_large(), holder.head);
         holder.name.setText(statusesBean.getUser().getScreen_name());
         holder.time.setText(TimeUtils.getTimeDiff(statusesBean.getCreated_at()));
-        holder.from.setText(Html.fromHtml(statusesBean.getSource()));
+        //style="color:red;text-decoration:none;"
+        String source = statusesBean.getSource();
+        if (source.contains("rel=\"nofollow\"")) {
+            source = source.replaceAll("rel=\"nofollow\"", "rel=\"nofollow\" style=\"color:#517EB0;text-decoration:none;\"");
+        }
+        holder.from.setText(Html.fromHtml(source));
         holder.content1.setText(statusesBean.getText());
-        holder.retweeted_txt.setText(statusesBean.getReposts_count()+"");
-        holder. comment_txt.setText(statusesBean.getComments_count()+"");
-        holder. praise_text.setText(statusesBean.getAttitudes_count()+"");
+        holder.retweeted_txt.setText(statusesBean.getReposts_count() + "");
+        holder.comment_txt.setText(statusesBean.getComments_count() + "");
+        holder.praise_text.setText(statusesBean.getAttitudes_count() + "");
+        if (statusesBean.getPic_urls() == null) {
+            holder.picture1.setVisibility(View.GONE);
+            holder.one_img_layout.setVisibility(View.GONE);
+        } else if (statusesBean.getPic_urls().size() == 0) {
+            holder.picture1.setVisibility(View.GONE);
+            holder.one_img_layout.setVisibility(View.GONE);
+        } else if (statusesBean.getPic_urls().size() == 1) {
+            holder.picture1.setVisibility(View.GONE);
+            holder.one_img_layout.setVisibility(View.VISIBLE);
+            GlideUtils.getRectangleImg(mContext, ConstantMethodUtils.replaceThumbnailUrl(statusesBean.getPic_urls().get(0).getThumbnail_pic()), holder.one_img);
+        } else {
+            holder.one_img_layout.setVisibility(View.GONE);
+            holder.picture1.setVisibility(View.VISIBLE);
+            holder.picture1.setAdapter(new PicGridViewAdapter(mContext, statusesBean.getPic_urls()));
+        }
 
     }
-
-//    public AttentionFragmentAdapter(Context mContext, List<?> mDatas) {
-//        super(mContext, mDatas);
-//    }
-//
-//    @Override
-//    public View getItemView(int position, View convertView, ViewGroup parent) {
-//        convertView = getConView(convertView, R.layout.attention_item);
-//        ImageView head = ViewHolder.get(convertView, R.id.head);
-//        TextView name = ViewHolder.get(convertView, R.id.name);
-//        TextView time = ViewHolder.get(convertView, R.id.time);
-//        TextView from = ViewHolder.get(convertView, R.id.from);
-//        TextView content1=ViewHolder.get(convertView,R.id.content1);
-//        View retweeted_item=ViewHolder.get(convertView,R.id.retweeted_item);
-//        GridView picture1=ViewHolder.get(convertView,R.id.picture_view1);
-//        TextView retweeted_txt=ViewHolder.get(convertView,R.id.retweeted_txt);
-//        TextView comment_txt=ViewHolder.get(convertView,R.id.comment_txt);
-//        TextView praise_text=ViewHolder.get(convertView,R.id.praise_text);
-//
-//        AttentionBean.StatusesBean statusesBean= (AttentionBean.StatusesBean) mDatas.get(position);
-//        Glide.with(mContext)
-//                .load(statusesBean.getUser().getProfile_image_url())
-////                .load("http://images.shichai.cnfol.com/original/201611/20161129113736719.jpg")
-//                .skipMemoryCache(true)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .transform(new GlideCircleTransform(mContext))
-//                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-//                .error(R.mipmap.default_head)
-//                .placeholder(R.mipmap.default_head)
-//                .into(head);
-//        name.setText(statusesBean.getUser().getScreen_name());
-//        time.setText(statusesBean.getCreated_at());
-//        from.setText(Html.fromHtml(statusesBean.getSource()));
-//        content1.setText(statusesBean.getText());
-//        retweeted_txt.setText(statusesBean.getReposts_count()+"");
-//        comment_txt.setText(statusesBean.getComments_count()+"");
-//        praise_text.setText(statusesBean.getAttitudes_count()+"");
-//        return convertView;
-//    }
 
 
 }

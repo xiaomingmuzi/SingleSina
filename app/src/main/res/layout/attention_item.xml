@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_fe">
+    android:background="@color/color_fe"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -19,12 +20,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/head"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_margin="8dp"
-            android:src="@mipmap/default_head" />
+        <RelativeLayout
+            android:layout_width="40.5dp"
+            android:layout_height="40.5dp"
+            android:background="@drawable/circle_line_bg"
+            android:layout_margin="8dp">
+
+            <ImageView
+                android:id="@+id/head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/default_head" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -34,7 +43,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -44,7 +55,7 @@
                     android:layout_weight="1"
                     android:text="天气通"
                     android:textColor="@color/color_name"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -55,14 +66,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="1分钟前"
                     android:textColor="@color/color_7c"
                     android:textSize="12sp" />
@@ -72,18 +85,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="来自"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_82" />
+                    android:textColor="@color/color_82"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="魅族拍照旗舰PRO 6s"
                     android:maxLines="1"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_from" />
+                    android:text="魅族拍照旗舰PRO 6s"
+                    android:textColor="@color/color_from"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -106,23 +119,58 @@
         android:id="@+id/retweeted_item"
         layout="@layout/attention_retweeted_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content1" />
-
-    <GridView
-        android:id="@+id/picture_view1"
-        android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/one_img_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:visibility="gone"
+        tools:visibility="visible">
+
+
+        <ImageView
+            android:id="@+id/one_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="150dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/default_load" />
+
+        <TextView
+            android:id="@+id/one_long_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/one_img"
+            android:layout_alignEnd="@id/one_img"
+            android:layout_marginEnd="2dp"
+            android:background="#aa3a6ab1"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:text="长图"
+            android:textColor="#ffffff"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+    <com.lixm.singlesina.customview.NoScrollGridView
+        android:id="@+id/picture_view1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
         android:numColumns="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content1" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/line1"
@@ -134,8 +182,7 @@
         android:background="@color/color_de"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picture_view1"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/picture_view1" />
 
     <include
         layout="@layout/item_bottom_layout"
@@ -146,4 +193,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line1" />
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

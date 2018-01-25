@@ -3,7 +3,6 @@ package com.lixm.singlesina.glide;
 import android.support.annotation.Nullable;
 
 import com.lixm.singlesina.interfaces.ProgressListener;
-import com.lixm.singlesina.utils.LogUtil;
 
 import java.io.IOException;
 
@@ -67,7 +66,7 @@ public class ProgressResponseBody extends ResponseBody {
                 totalBytesRead = fullLength;
             } else totalBytesRead += bytesRead;
             int progress = (int) (100f * totalBytesRead / fullLength);
-            LogUtil.i("download progress is " + progress);
+//            LogUtil.i("download progress is " + progress);
             if (listener != null && totalBytesRead == fullLength) {
                 listener = null;
             }
