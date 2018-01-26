@@ -25,8 +25,7 @@
             android:value="weibo" />
         <meta-data
             android:name="com.lixm.singlesina.glide.MyGlideModule"
-            android:value="GlideModule"
-            />
+            android:value="GlideModule" />
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -42,7 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SetActivity"></activity>
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.WeiBoDetailsActivity"></activity>
     </application>
 
 </manifest>

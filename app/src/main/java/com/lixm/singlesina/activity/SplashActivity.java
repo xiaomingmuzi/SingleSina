@@ -22,6 +22,7 @@ public class SplashActivity extends Activity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
         }
     };
 }

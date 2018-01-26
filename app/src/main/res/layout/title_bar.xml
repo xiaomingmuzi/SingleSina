@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="40dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_fa">
 
 
@@ -19,6 +20,7 @@
             android:text="添加好友"
             android:layout_centerVertical="true"
             android:visibility="gone"
+                tools:visibility="visible"
             android:textColor="@color/color_26"/>
 
         <ImageView
@@ -33,11 +35,34 @@
         android:id="@+id/title_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+      android:layout_centerInParent="true"
         android:text="标题"
         android:textColor="@color/color_26"
         android:textSize="16sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:id="@+id/title_user"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/title_head"
+            android:layout_marginEnd="10dp"
+            android:background="@mipmap/default_head"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="王者荣耀"
+            android:textSize="14sp"
+            android:textColor="@color/color_33"
+            />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/right_layout"

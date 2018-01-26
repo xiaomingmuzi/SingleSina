@@ -16,15 +16,20 @@ import com.lixm.singlesina.customview.NoScrollGridView;
  */
 
 public class AttentionViewHolder extends RecyclerView.ViewHolder {
-    private View view;
+    public View view;
     public ImageView head;
     public TextView name;
     public TextView time;
     public TextView from;
     public TextView content1;
+
     public View retweeted_item;
     public TextView retweeted_name_content;
     public NoScrollGridView retweeted_picture_view;
+    public RelativeLayout re_one_img_layout;
+    public ImageView re_one_img;
+    public TextView re_one_long_txt;
+
     public RelativeLayout one_img_layout;
     public ImageView one_img;
     public TextView one_long_txt;
@@ -45,9 +50,14 @@ public class AttentionViewHolder extends RecyclerView.ViewHolder {
         time = view.findViewById(R.id.time);
         from = view.findViewById(R.id.from);
         content1 = view.findViewById(R.id.content1);
+
         retweeted_item = view.findViewById(R.id.retweeted_item);
         retweeted_name_content=view.findViewById(R.id.retweeted_name_content);
         retweeted_picture_view=view.findViewById(R.id.retweeted_picture_view);
+        re_one_img_layout=view.findViewById(R.id.re_one_img_layout);
+        re_one_img=view.findViewById(R.id.re_one_img);
+        re_one_long_txt=view.findViewById(R.id.re_one_long_txt);
+
         picture1 = view.findViewById(R.id.picture_view1);
         one_img_layout=view.findViewById(R.id.one_img_layout);
         one_img=view.findViewById(R.id.one_img);

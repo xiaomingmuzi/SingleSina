@@ -1159,22 +1159,6 @@ public class AttentionBean {
                     this.approval_comment_type = approval_comment_type;
                 }
             }
-
-            public static class PicUrlsBean {
-                /**
-                 * thumbnail_pic : http://wx2.sinaimg.cn/thumbnail/594fb883ly1fnriqm3yaoj20p00p0tb0.jpg
-                 */
-
-                private String thumbnail_pic;
-
-                public String getThumbnail_pic() {
-                    return thumbnail_pic;
-                }
-
-                public void setThumbnail_pic(String thumbnail_pic) {
-                    this.thumbnail_pic = thumbnail_pic;
-                }
-            }
         }
 
         public static class VisibleBeanX {

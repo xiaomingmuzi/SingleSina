@@ -61,6 +61,7 @@ public class GlideUtils {
     }
 
     public static void getRectangleImg(Context context, String url, ImageView imageView) {
+        LogUtil.i("图片地址："+url);
         Glide.with(context)
                 .load(url)
                 .skipMemoryCache(false)
