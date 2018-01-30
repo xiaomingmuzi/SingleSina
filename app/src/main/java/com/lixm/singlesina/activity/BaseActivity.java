@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentActivity;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.utils.StatusBarUtil;
 import com.lixm.singlesina.utils.ToastUtils;
+import com.sina.weibo.sdk.auth.AccessTokenKeeper;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 /**
  * @author Lixm
@@ -20,6 +22,7 @@ public class BaseActivity extends FragmentActivity {
     public Context mContext;
     public ToastUtils mToastUtils;
     private int color_id = R.color.color_fa;
+    public Oauth2AccessToken mAccessToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class BaseActivity extends FragmentActivity {
         mToastUtils=ToastUtils.getInstance(this);
         StatusBarUtil.setStatusBarColor(this,color_id);
         StatusBarUtil.StatusBarLightMode(this,StatusBarUtil.StatusBarLightMode(this));
+        mAccessToken = AccessTokenKeeper.readAccessToken(this);
     }
 
     @Override

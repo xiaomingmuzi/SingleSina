@@ -126,6 +126,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         mRightLayout.setVisibility(View.VISIBLE);
         mRightImg.setVisibility(View.GONE);
         mRightTxt.setText("设置");
+        progressDialog=new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         userInfoBean = UserInfoBean.getInstance();
         // 创建微博实例
@@ -136,8 +138,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         if (mAccessToken.isSessionValid()) {
             updateTokenView(true);
         }
-        progressDialog=new ProgressDialog(getActivity());
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         getActivity().registerReceiver(receiver, new IntentFilter(CALLBACK_LOGING));
         userItemViews=new ArrayList<>();

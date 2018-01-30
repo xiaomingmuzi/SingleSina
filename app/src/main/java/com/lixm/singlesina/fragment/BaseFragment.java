@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import com.lixm.singlesina.bean.UserInfoBean;
 import com.lixm.singlesina.utils.LogUtil;
 import com.lixm.singlesina.utils.ToastUtils;
+import com.sina.weibo.sdk.auth.AccessTokenKeeper;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import butterknife.Unbinder;
 
@@ -21,6 +23,7 @@ public class BaseFragment extends Fragment {
     public ToastUtils mToastUtils;
     public Unbinder mUnbinder;
     public UserInfoBean mUserInfoBean;
+    public Oauth2AccessToken mAccessToken;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class BaseFragment extends Fragment {
         mToastUtils = ToastUtils.getInstance(getContext());
         mUserInfoBean=UserInfoBean.getInstance();
         mUserInfoBean = mUserInfoBean.getCache(getContext());
+        mAccessToken = AccessTokenKeeper.readAccessToken(getContext());
     }
 
 

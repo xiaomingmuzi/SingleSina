@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lixm.singlesina.R;
+import com.lixm.singlesina.activity.WeiBoDetailsActivity;
 import com.lixm.singlesina.adapter.utils.BaseRecyclerViewAdapter;
 import com.lixm.singlesina.bean.AttentionBean;
 import com.lixm.singlesina.customview.NoScrollGridView;
@@ -40,7 +41,7 @@ public class AttentionFragmentAdapter extends BaseRecyclerViewAdapter {
     @Override
     public void getItemView(AttentionViewHolder holder, int position) {
 
-        AttentionBean.StatusesBean statusesBean = (AttentionBean.StatusesBean) mDatas.get(position);
+        final AttentionBean.StatusesBean statusesBean = (AttentionBean.StatusesBean) mDatas.get(position);
         GlideUtils.getCircleHead(mContext, statusesBean.getUser().getAvatar_large(), holder.head);
         holder.name.setText(statusesBean.getUser().getScreen_name());
         holder.time.setText(TimeUtils.getTimeDiff(statusesBean.getCreated_at()));
@@ -68,7 +69,7 @@ public class AttentionFragmentAdapter extends BaseRecyclerViewAdapter {
         holder.view.setOnClickListener(new View.OnClickListener() {//原创布局
             @Override
             public void onClick(View v) {
-
+                WeiBoDetailsActivity.enterActivity(mContext,statusesBean.getIdstr());
             }
         });
 

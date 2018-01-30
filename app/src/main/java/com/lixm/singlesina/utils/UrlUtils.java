@@ -12,5 +12,5 @@ public class UrlUtils {
 //    获取当前登录用户及其所关注（授权）用户的最新微博
     public static String home_timeline="https://api.weibo.com/2/statuses/home_timeline.json";
     //根据ID跳转到单条微博页
-    public static String go="http://api.weibo.com/2/statuses/go";
+    public static String statuses_show="https://api.weibo.com/2/statuses/show.json";
 }
