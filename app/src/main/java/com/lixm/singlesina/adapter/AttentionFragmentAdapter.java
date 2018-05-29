@@ -12,6 +12,7 @@ import com.lixm.singlesina.R;
 import com.lixm.singlesina.activity.WeiBoDetailsActivity;
 import com.lixm.singlesina.adapter.utils.BaseRecyclerViewAdapter;
 import com.lixm.singlesina.bean.AttentionBean;
+import com.lixm.singlesina.bean.PicUrlsBean;
 import com.lixm.singlesina.customview.NoScrollGridView;
 import com.lixm.singlesina.utils.ConstantMethodUtils;
 import com.lixm.singlesina.utils.GlideUtils;
@@ -91,7 +92,7 @@ public class AttentionFragmentAdapter extends BaseRecyclerViewAdapter {
      * @param oneLong
      * @param list
      */
-    private void handlePic(NoScrollGridView pictureGrid, RelativeLayout oneLayout, ImageView one_img, TextView oneLong, List<AttentionBean.StatusesBean.PicUrlsBean> list) {
+    private void handlePic(NoScrollGridView pictureGrid, RelativeLayout oneLayout, ImageView one_img, TextView oneLong, List<PicUrlsBean> list) {
         if (list == null) {
             pictureGrid.setVisibility(View.GONE);
             oneLayout.setVisibility(View.GONE);

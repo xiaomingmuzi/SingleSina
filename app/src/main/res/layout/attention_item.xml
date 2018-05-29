@@ -139,7 +139,7 @@
         <ImageView
             android:id="@+id/one_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:maxHeight="150dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/default_load" />

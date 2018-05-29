@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lixm.singlesina.R;
+import com.lixm.singlesina.bean.WeiBoDetailsBean;
 import com.lixm.singlesina.network.IOKCallBack;
 import com.lixm.singlesina.network.OKHttpUtil;
 import com.lixm.singlesina.network.RequestParams;
@@ -40,6 +42,7 @@ public class WeiBoDetailsActivity extends BaseActivity implements View.OnClickLi
      */
     public static void enterActivity(Context context, String id) {
         Intent intent = new Intent(context, WeiBoDetailsActivity.class);
+        id="4201905896865856";
         intent.putExtra("id", id);
         context.startActivity(intent);
     }
@@ -79,7 +82,9 @@ public class WeiBoDetailsActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onSuccess(String result) {
-
+                Gson gson=new Gson();
+                WeiBoDetailsBean weiBoDetailsBean=gson.fromJson(result,WeiBoDetailsBean.class);
+                retweeted_txt.setText(weiBoDetailsBean.getReposts_count()+"");
             }
         });
     }

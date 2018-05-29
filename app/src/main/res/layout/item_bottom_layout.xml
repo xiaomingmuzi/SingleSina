@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp"
+    android:paddingBottom="6dp"
+    android:paddingTop="6dp"
     tools:showIn="@layout/attention_item">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
@@ -23,7 +23,6 @@
             android:drawablePadding="3dp"
             android:drawableStart="@mipmap/retween_pic"
             android:gravity="center"
-            android:orientation="horizontal"
             android:text="7635"
             android:textColor="@color/color_63"
             android:textSize="14sp" />
@@ -36,8 +35,8 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_height="30dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -48,7 +47,6 @@
             android:drawablePadding="3dp"
             android:drawableStart="@mipmap/comment_pic"
             android:gravity="center"
-            android:orientation="horizontal"
             android:text="2511"
             android:textColor="@color/color_63"
             android:textSize="14sp" />
@@ -61,8 +59,8 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_height="30dp"
         android:gravity="center"
         android:orientation="horizontal">
 

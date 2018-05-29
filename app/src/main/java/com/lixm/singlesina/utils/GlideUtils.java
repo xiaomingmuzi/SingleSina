@@ -65,7 +65,7 @@ public class GlideUtils {
         Glide.with(context)
                 .load(url)
                 .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .error(R.mipmap.default_load)
                 .placeholder(R.mipmap.default_load)

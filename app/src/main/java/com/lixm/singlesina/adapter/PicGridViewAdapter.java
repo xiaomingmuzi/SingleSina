@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import com.lixm.singlesina.R;
 import com.lixm.singlesina.adapter.utils.BaseObjectListAdapter;
 import com.lixm.singlesina.adapter.utils.BaseObjectListViewHolder;
-import com.lixm.singlesina.bean.AttentionBean;
+import com.lixm.singlesina.bean.PicUrlsBean;
 import com.lixm.singlesina.utils.ConstantMethodUtils;
 import com.lixm.singlesina.utils.GlideUtils;
 import com.lixm.singlesina.utils.UIUtils;
@@ -43,7 +43,7 @@ public class PicGridViewAdapter extends BaseObjectListAdapter {
         params.height = baseWidth / 3;
         params.width=params.height;
         imageView.setLayoutParams(params);
-        GlideUtils.getRectangleImg(mContext, ConstantMethodUtils.replaceThumbnailUrl(((AttentionBean.StatusesBean.PicUrlsBean) mDatas.get(position)).getThumbnail_pic()), imageView);
+        GlideUtils.getRectangleImg(mContext, ConstantMethodUtils.replaceThumbnailUrl(((PicUrlsBean) mDatas.get(position)).getThumbnail_pic()), imageView);
 //        int[] data = GlideUtils.getRectangleImgWithWith(mContext, ((AttentionBean.StatusesBean.PicUrlsBean) mDatas.get(position)).getThumbnail_pic(), imageView);
 //        try {
 //            if ((data[1] > data[0] && data[1] / data[0] >= 3) || (data[0] > data[1] && data[0] / data[1] >= 3)) {

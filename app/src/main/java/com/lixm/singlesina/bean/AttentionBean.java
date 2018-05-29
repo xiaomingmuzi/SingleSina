@@ -646,22 +646,6 @@ public class AttentionBean {
             this.biz_ids = biz_ids;
         }
 
-        public static class PicUrlsBean {
-            /**
-             * thumbnail_pic : http://wx1.sinaimg.cn/thumbnail/006HMUtTly1fnslk6k47hj30by0by0tk.jpg
-             */
-
-            private String thumbnail_pic;
-
-            public String getThumbnail_pic() {
-                return thumbnail_pic;
-            }
-
-            public void setThumbnail_pic(String thumbnail_pic) {
-                this.thumbnail_pic = thumbnail_pic;
-            }
-        }
-
         public static class RetweetedStatusBean {
             /**
              * created_at : Wed Jan 24 11:07:07 +0800 2018
